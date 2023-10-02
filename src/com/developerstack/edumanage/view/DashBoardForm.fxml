@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="context" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.developerstack.edumanage.controller.DashBoardFormController">
    <children>
       <Label layoutX="16.0" layoutY="41.0" text="DashBoard" textFill="#0e44e8">
@@ -27,7 +26,7 @@
          </font>
       </Label>
       <Separator layoutX="332.0" layoutY="37.0" orientation="VERTICAL" prefHeight="38.0" prefWidth="7.0" />
-      <Button layoutX="16.0" layoutY="99.0" mnemonicParsing="false" prefHeight="116.0" prefWidth="133.0" style="-fx-background-color: blue;" text="Student" textFill="#f5f5f5">
+      <Button layoutX="16.0" layoutY="99.0" mnemonicParsing="false" onAction="#openStudentFormOnAction" prefHeight="116.0" prefWidth="133.0" style="-fx-background-color: blue;" text="Student" textFill="#f5f5f5">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
