@@ -28,7 +28,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="373.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-color: blue;" text="+ New Student" textFill="#eeecec">
+      <Button layoutX="373.0" layoutY="12.0" mnemonicParsing="false" onAction="#newStudentOnAction" style="-fx-background-color: blue;" text="+ New Student" textFill="#eeecec">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -50,7 +50,7 @@
             <TableColumn fx:id="colOption" prefWidth="117.0" text="Options" />
         </columns>
       </TableView>
-      <Button layoutX="441.0" layoutY="101.0" mnemonicParsing="false" onAction="#saveOnAction" prefHeight="29.0" prefWidth="143.0" style="-fx-background-color: blue;" text="Save Student" textFill="#eee8e8">
+      <Button fx:id="btn" layoutX="441.0" layoutY="101.0" mnemonicParsing="false" onAction="#saveOnAction" prefHeight="29.0" prefWidth="143.0" style="-fx-background-color: blue;" text="Save Student" textFill="#eee8e8">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

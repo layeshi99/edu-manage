@@ -11,7 +11,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class StudentFormController {
@@ -26,6 +28,7 @@ public class StudentFormController {
     public TableColumn colDob;
     public TableColumn colAddress;
     public TableColumn colOption;
+    public Button btn;
 
     public void initialize(){
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -35,6 +38,21 @@ public class StudentFormController {
         colOption.setCellValueFactory(new PropertyValueFactory<>("btn"));
         setStudentId();
         setTableData();
+
+        tblStudent.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    if (null!=newValue){
+                        setData(newValue);
+                    }
+                });
+    }
+
+    private void setData(StudentTM tm) {
+        txtId.setText(tm.getId());
+        txtName.setText(tm.getFullName());
+        txtAddress.setText(tm.getAddress());
+        txtDob.setValue(LocalDate.parse(tm.getDob(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        btn.setText("Update Student");
     }
 
     private void setTableData() {
@@ -71,22 +89,46 @@ public class StudentFormController {
     }
 
     public void saveOnAction(ActionEvent actionEvent) {
-        Student student=new Student(
-                txtId.getText(),
-                txtName.getText(),
-                Date.from(txtDob.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
-                txtAddress.getText()
-        );
-        Database.studentTable.add(student);
-        setStudentId();
-        clear();
-        setTableData();
-        new Alert(Alert.AlertType.INFORMATION,"Student Saved").show();
+        if(btn.getText().equalsIgnoreCase("Save Student")){
+            Student student=new Student(
+                    txtId.getText(),
+                    txtName.getText(),
+                    Date.from(txtDob.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                    txtAddress.getText()
+            );
+            Database.studentTable.add(student);
+            setStudentId();
+            clear();
+            setTableData();
+            new Alert(Alert.AlertType.INFORMATION,"Student Saved").show();
+
+        }else {
+            for (Student st:Database.studentTable) {
+                if (st.getStudentId().equals(txtId.getText())){
+                    st.setAddress(txtAddress.getText());
+                    st.setFullName(txtName.getText());
+                    st.setDateOfBirth(Date.from(txtDob.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+                    setTableData();
+                    clear();
+                    setStudentId();
+                    btn.setText("Save Student");
+                    return;
+                }
+            }
+            new Alert(Alert.AlertType.WARNING, "Not Found").show();
+        }
+
     }
 
     private void clear(){
         txtDob.setValue(null);
         txtName.clear();
         txtAddress.clear();
+    }
+
+    public void newStudentOnAction(ActionEvent actionEvent) {
+        clear();
+        setStudentId();
+        btn.setText("Save Student");
     }
 }
