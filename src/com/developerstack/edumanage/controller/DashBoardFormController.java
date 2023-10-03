@@ -42,10 +42,15 @@ public class DashBoardFormController {
 
     }
 
-    public void openIntakeOnAction(ActionEvent actionEvent) {
+    public void openIntakeOnAction(ActionEvent actionEvent) throws IOException {
+        setUi("IntakeForm");
     }
 
     public void openTeacheOnAction(ActionEvent actionEvent) throws IOException {
         setUi("TeacherForm");
+    }
+
+    public void registrationOnAction(ActionEvent actionEvent) throws IOException {
+        setUi("RegistrationForm");
     }
 }
