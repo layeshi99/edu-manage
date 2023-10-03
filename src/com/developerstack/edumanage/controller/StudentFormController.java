@@ -6,15 +6,20 @@ import com.developerstack.edumanage.view.tm.StudentTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Optional;
 
 public class StudentFormController {
     public AnchorPane context;
@@ -29,6 +34,8 @@ public class StudentFormController {
     public TableColumn colAddress;
     public TableColumn colOption;
     public Button btn;
+    public TextField txtSearch;
+    String searchText="";
 
     public void initialize(){
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -37,7 +44,12 @@ public class StudentFormController {
         colAddress.setCellValueFactory(new PropertyValueFactory<>("dob"));
         colOption.setCellValueFactory(new PropertyValueFactory<>("btn"));
         setStudentId();
-        setTableData();
+        setTableData(searchText);
+
+        txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchText=newValue;
+            setTableData(searchText);
+        });
 
         tblStudent.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
@@ -55,7 +67,7 @@ public class StudentFormController {
         btn.setText("Update Student");
     }
 
-    private void setTableData() {
+    private void setTableData(String searchText) {
         ObservableList<StudentTM> obList= FXCollections.observableArrayList();
         for(Student st:Database.studentTable){
             Button btn=new Button("Delete");
@@ -66,6 +78,20 @@ public class StudentFormController {
                     st.getAddress(),
                     btn
             );
+            btn.setOnAction(e->{
+                Alert alert= new Alert(
+                        Alert.AlertType.CONFIRMATION,
+                        "Are you sure?",
+                        ButtonType.YES,ButtonType.NO
+                );
+                Optional<ButtonType> buttonType = alert.showAndWait();
+                if (buttonType.get().equals(ButtonType.YES)){
+                    Database.studentTable.remove(st);
+                    new Alert(Alert.AlertType.INFORMATION, "Deleted!").show();
+                    setTableData(searchText);
+                    setStudentId();
+                }
+            });
             obList.add(tm);
         }
         tblStudent.setItems(obList);
@@ -99,7 +125,7 @@ public class StudentFormController {
             Database.studentTable.add(student);
             setStudentId();
             clear();
-            setTableData();
+            setTableData(searchText);
             new Alert(Alert.AlertType.INFORMATION,"Student Saved").show();
 
         }else {
@@ -108,7 +134,7 @@ public class StudentFormController {
                     st.setAddress(txtAddress.getText());
                     st.setFullName(txtName.getText());
                     st.setDateOfBirth(Date.from(txtDob.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-                    setTableData();
+                    setTableData(searchText);
                     clear();
                     setStudentId();
                     btn.setText("Save Student");
@@ -130,5 +156,15 @@ public class StudentFormController {
         clear();
         setStudentId();
         btn.setText("Save Student");
+    }
+    private void setUi(String location) throws IOException {
+        Stage stage = (Stage) context.getScene().getWindow();
+        stage.setScene(new Scene(
+                FXMLLoader.load(getClass().getResource("../view/"+location+".fxml"))));
+        stage.centerOnScreen();
+    }
+
+    public void backToHomeOnAction(ActionEvent actionEvent) throws IOException {
+        setUi("DashboardForm");
     }
 }
