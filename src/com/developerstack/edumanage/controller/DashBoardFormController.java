@@ -38,6 +38,7 @@ public class DashBoardFormController {
     }
 
     public void openProgramOnAction(ActionEvent actionEvent) throws IOException {
+        setUi("ProgramsForm");
 
     }
 
