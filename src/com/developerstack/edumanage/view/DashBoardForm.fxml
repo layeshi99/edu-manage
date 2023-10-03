@@ -34,7 +34,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="167.0" layoutY="99.0" mnemonicParsing="false" prefHeight="116.0" prefWidth="133.0" style="-fx-background-color: black;" text="Programs" textFill="#fff9f9">
+      <Button layoutX="167.0" layoutY="99.0" mnemonicParsing="false" onAction="#openProgramOnAction" prefHeight="116.0" prefWidth="133.0" style="-fx-background-color: black;" text="Programs" textFill="#fff9f9">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -42,7 +42,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="320.0" layoutY="99.0" mnemonicParsing="false" prefHeight="116.0" prefWidth="133.0" style="-fx-background-color: red;" text="Intakes" textFill="#f8f6f6">
+      <Button layoutX="320.0" layoutY="99.0" mnemonicParsing="false" onAction="#openIntakeOnAction" prefHeight="116.0" prefWidth="133.0" style="-fx-background-color: red;" text="Intakes" textFill="#f8f6f6">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -50,7 +50,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="469.0" layoutY="99.0" mnemonicParsing="false" prefHeight="116.0" prefWidth="118.0" style="-fx-background-color: orange;" text="Teachers" textFill="#fffbfb">
+      <Button layoutX="469.0" layoutY="99.0" mnemonicParsing="false" onAction="#openTeacheOnAction" prefHeight="116.0" prefWidth="118.0" style="-fx-background-color: orange;" text="Teachers" textFill="#fffbfb">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

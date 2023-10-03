@@ -36,4 +36,15 @@ public class DashBoardFormController {
     public void openStudentFormOnAction(ActionEvent actionEvent) throws IOException {
         setUi("StudentForm");
     }
+
+    public void openProgramOnAction(ActionEvent actionEvent) throws IOException {
+
+    }
+
+    public void openIntakeOnAction(ActionEvent actionEvent) {
+    }
+
+    public void openTeacheOnAction(ActionEvent actionEvent) throws IOException {
+        setUi("TeacherForm");
+    }
 }
